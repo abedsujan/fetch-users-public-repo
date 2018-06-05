@@ -12,6 +12,7 @@ searchBtn.addEventListener('click', function () {
 /*
     User basic info
 */
+// fetch userinfo from github api
 function fetchUserInfo(username) {
 
     console.log('useRepos', userInfoJson);
@@ -25,7 +26,7 @@ function fetchUserInfo(username) {
     //     });
 }
 
-
+// display user information with profile picture
 function renderUserInfoTemplate(user) {
     let userInfo = document.getElementById("userInfo");
 
@@ -61,6 +62,8 @@ function renderUserInfoTemplate(user) {
 /*
  User repo listing 
 */
+
+// fetch repos from github api
 function fetchUserRepos() {
     console.log('useRepos', reposJson);
 
