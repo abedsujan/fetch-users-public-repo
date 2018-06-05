@@ -1,4 +1,6 @@
 let username = '';
+let show_count = 0;
+let total_count = 0;
 
 const searchBtn = document.getElementById("search-btn");
 searchBtn.addEventListener('click', function () {
@@ -12,11 +14,15 @@ searchBtn.addEventListener('click', function () {
 */
 // fetch userinfo from github api
 function fetchAndDisplayUserInfo() {
-    fetch('https://api.github.com/users/' + username).then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then((response) => {
-            renderUserInfoTemplate(response);
-        });
+    total_count = userInfoJson.public_repos;
+    renderUserInfoTemplate(userInfoJson);
+
+    // fetch('https://api.github.com/users/' + username).then(res => res.json())
+    //     .catch(error => console.error('Error:', error))
+    //     .then((response) => {
+        // total_count = response.public_repos;
+    //         renderUserInfoTemplate(response);
+    //     });
 }
 
 // display user information with profile picture
@@ -58,11 +64,17 @@ function renderUserInfoTemplate(user) {
 
 // fetch repos from github api
 function fetchAndDisplayUserRepos() {
-    fetch('https://api.github.com/users/' + username + '/repos?sort=updated').then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then((response) => {
-            renderRepoListTemplate(response);
-        });
+
+    show_count += reposJson.length;
+    renderResultFoundTemplate();
+    renderRepoListTemplate(reposJson);
+
+    // fetch('https://api.github.com/users/' + username + '/repos?sort=updated').then(res => res.json())
+    //     .catch(error => console.error('Error:', error))
+    //     .then((response) => {
+            // show_count += response.length;
+    //         renderRepoListTemplate(response);
+    //     });
 }
 
 function renderRepoListTemplate(repoList) {
@@ -87,4 +99,10 @@ function getRepoThumbnailTemplate(repo) {
             </div>
         </div>
         `;
+}
+
+/* Status message*/
+function renderResultFoundTemplate() {
+    let statusMessage = document.getElementById("statusMessage");
+    statusMessage.innerHTML = `<h2>Showing ${show_count} of ${total_count} public repositories</h2>`;
 }
