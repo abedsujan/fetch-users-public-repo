@@ -1,4 +1,6 @@
 let username = '';
+
+let page = 1;
 let show_count = 0;
 let total_count = 0;
 
@@ -17,19 +19,18 @@ searchBtn.addEventListener('click', function () {
 */
 // fetch userinfo from github api
 function fetchAndDisplayUserInfo() {
-    total_count = userInfoJson.public_repos;
-    renderUserInfoTemplate(userInfoJson);
 
-    // fetch('https://api.github.com/users/' + username).then(res => res.json())
-    //     .catch(error => console.error('Error:', error))
-    //     .then((response) => {
-    // total_count = response.public_repos;
-    //         renderUserInfoTemplate(response);
-    //     });
+    fetch('https://api.github.com/users/' + username).then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then((response) => {
+            total_count = response.public_repos;
+            renderUserInfoTemplate(response);
+        });
 }
 
 // display user information with profile picture
 function renderUserInfoTemplate(user) {
+
     let userInfo = document.getElementById("userInfo");
 
     userInfo.setAttribute("class", "row user-info");
@@ -68,19 +69,19 @@ function renderUserInfoTemplate(user) {
 // fetch repos from github api
 function fetchAndDisplayUserRepos() {
 
-    show_count += reposJson.length;
-    renderResultFoundTemplate();
-    renderRepoListTemplate(reposJson);
+    fetch('https://api.github.com/users/' + username + '/repos?page=' + page + '&per_page=10&sort=updated').then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then((response) => {
+            page++;
+            show_count += response.length;
 
-    // fetch('https://api.github.com/users/' + username + '/repos?sort=updated').then(res => res.json())
-    //     .catch(error => console.error('Error:', error))
-    //     .then((response) => {
-    // show_count += response.length;
-    //         renderRepoListTemplate(response);
-    //     });
+            renderResultFoundTemplate();
+            renderRepoListTemplate(response);
+        });
 }
 
 function renderRepoListTemplate(repoList) {
+
     let repoElement = document.getElementById("repos");
     for (const repo of repoList) {
         const repoThumb = getRepoThumbnailTemplate(repo);
@@ -89,6 +90,7 @@ function renderRepoListTemplate(repoList) {
 }
 
 function getRepoThumbnailTemplate(repo) {
+
     return `
         <div class="thumbnail">
             <div class="caption">
@@ -106,6 +108,7 @@ function getRepoThumbnailTemplate(repo) {
 
 /* Status message*/
 function renderResultFoundTemplate() {
+
     let statusMessage = document.getElementById("statusMessage");
     statusMessage.innerHTML = `<h2>Showing ${show_count} of ${total_count} public repositories</h2>`;
 }
@@ -113,6 +116,7 @@ function renderResultFoundTemplate() {
 /* reset result*/
 
 function resetPreviousResult() {
+    
     total_count = 0;
     show_count = 0;
     document.getElementById("searchText").value = '';
@@ -122,6 +126,7 @@ function resetPreviousResult() {
 
 /* on scroll event*/
 $(window).scroll(function () {
+
     if ($(window).scrollTop() == $(document).height() - $(window).height() && isScrollable) {
         fetchAndDisplayUserRepos();
     }
