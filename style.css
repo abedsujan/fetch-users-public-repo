@@ -28,3 +28,34 @@
 .user-info img {
     width: 80%;
 }
+
+
+/* repo list*/
+
+.repo-list {
+    padding-top: 40px;
+}
+
+.thumbnail {
+    display: block;
+    padding: 4px;
+    margin-bottom: 20px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.thumbnail .caption {
+    padding: 9px;
+    color: #333;
+}
+
+.thumbnail p.language {
+    padding-top: 0;
+    color: #666;
+}
+
+.badge {
+    font-size: 50%;
+}

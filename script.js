@@ -87,8 +87,16 @@ function renderRepoListTemplate(repoList) {
 function getRepoThumbnailTemplate(repo) {
 
     return `
-    <div>
-         ${repo.name}
-    </div>
-    `;
+        <div class="thumbnail">
+            <div class="caption">
+                <h3>
+                    <a href="${repo.html_url}">${repo.name}</a>
+                    <span class="badge">${repo.stargazers_count} Stars</span>
+                    <span class="badge">${repo.forks} Forks</span>
+                </h3>
+                ${repo.language? `<p class="language">Main language: ${repo.language}</p>` : ''}
+                ${repo.description? `<p> ${repo.description}</p>` : ''}
+            </div>
+        </div>
+        `;
 }
