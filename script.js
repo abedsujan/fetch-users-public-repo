@@ -122,7 +122,10 @@ function resetPreviousResult() {
 
 /* on scroll event*/
 $(window).scroll(function () {
-    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-        console.log('###---------------########');
+    if ($(window).scrollTop() == $(document).height() - $(window).height() && isScrollable) {
+        fetchAndDisplayUserRepos();
     }
 });
+
+/* isSscrollable */
+const isScrollable = () => total_count % show_count != 0;
