@@ -1,29 +1,22 @@
+let username = '';
+
 const searchBtn = document.getElementById("search-btn");
-
-
 searchBtn.addEventListener('click', function () {
     username = document.getElementById("searchText").value;
-    console.log('search text', username);
-
-    fetchUserInfo(username);
-    fetchUserRepos(username);
+    fetchAndDisplayUserInfo();
+    fetchAndDisplayUserRepos();
 });
 
 /*
     User basic info
 */
 // fetch userinfo from github api
-function fetchUserInfo(username) {
-
-    console.log('useRepos', userInfoJson);
-
-    renderUserInfoTemplate(userInfoJson);
-
-    // fetch('https://api.github.com/users/' + username).then(res => res.json())
-    //     .catch(error => console.error('Error:', error))
-    //     .then((response) => {
-    //        console.log('userinfo', response);
-    //     });
+function fetchAndDisplayUserInfo() {
+    fetch('https://api.github.com/users/' + username).then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then((response) => {
+            renderUserInfoTemplate(response);
+        });
 }
 
 // display user information with profile picture
@@ -64,17 +57,13 @@ function renderUserInfoTemplate(user) {
 */
 
 // fetch repos from github api
-function fetchUserRepos() {
-    console.log('useRepos', reposJson);
-
-    renderRepoListTemplate(reposJson);
-    // fetch('https://api.github.com/users/' + username + '/repos?sort=updated').then(res => res.json())
-    //     .catch(error => console.error('Error:', error))
-    //     .then((response) => {
-    //         console.log('useRepos', response);
-    //     });
+function fetchAndDisplayUserRepos() {
+    fetch('https://api.github.com/users/' + username + '/repos?sort=updated').then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then((response) => {
+            renderRepoListTemplate(response);
+        });
 }
-
 
 function renderRepoListTemplate(repoList) {
     let repoElement = document.getElementById("repos");
@@ -85,7 +74,6 @@ function renderRepoListTemplate(repoList) {
 }
 
 function getRepoThumbnailTemplate(repo) {
-
     return `
         <div class="thumbnail">
             <div class="caption">
