@@ -6,3 +6,25 @@
     background: #ddd;
     padding: 20px 40px;
 }
+
+
+/* User basic info */
+.user-info {
+    margin-top: 40px;
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+.user-info div:first-child {
+    background: #f1f1f1;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.user-info div:last-child {
+    padding: 10px 20px;
+}
+
+.user-info img {
+    width: 80%;
+}
