@@ -116,7 +116,7 @@ function renderResultFoundTemplate() {
 /* reset result*/
 
 function resetPreviousResult() {
-    
+    page = 1;
     total_count = 0;
     show_count = 0;
     document.getElementById("searchText").value = '';
