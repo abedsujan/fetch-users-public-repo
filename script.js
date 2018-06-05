@@ -67,6 +67,7 @@ function renderUserInfoTemplate(user) {
 function fetchUserRepos() {
     console.log('useRepos', reposJson);
 
+    renderRepoListTemplate(reposJson);
     // fetch('https://api.github.com/users/' + username + '/repos?sort=updated').then(res => res.json())
     //     .catch(error => console.error('Error:', error))
     //     .then((response) => {
@@ -75,3 +76,19 @@ function fetchUserRepos() {
 }
 
 
+function renderRepoListTemplate(repoList) {
+    let repoElement = document.getElementById("repos");
+    for (const repo of repoList) {
+        const repoThumb = getRepoThumbnailTemplate(repo);
+        repoElement.insertAdjacentHTML('beforeend', repoThumb);
+    }
+}
+
+function getRepoThumbnailTemplate(repo) {
+
+    return `
+    <div>
+         ${repo.name}
+    </div>
+    `;
+}
