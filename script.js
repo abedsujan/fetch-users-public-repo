@@ -5,7 +5,7 @@ let total_count = 0;
 const searchBtn = document.getElementById("search-btn");
 searchBtn.addEventListener('click', function () {
     username = document.getElementById("searchText").value;
-    
+
     resetPreviousResult();
 
     fetchAndDisplayUserInfo();
@@ -119,3 +119,10 @@ function resetPreviousResult() {
     document.getElementById("userInfo").innerHTML = '';
     document.getElementById("repos").innerHTML = '';
 }
+
+/* on scroll event*/
+$(window).scroll(function () {
+    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+        console.log('###---------------########');
+    }
+});
