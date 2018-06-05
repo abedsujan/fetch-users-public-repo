@@ -1,0 +1,8 @@
+.search-area {
+    padding: 20px 0;
+}
+
+.search-area .input-group {
+    background: #ddd;
+    padding: 20px 40px;
+}
